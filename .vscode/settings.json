@@ -10,5 +10,11 @@
 			"source.sortImports": "explicit"
 		}
 	},
-	"haxe.enableExtendedIndentation": true
+	"haxe.enableExtendedIndentation": true,
+	"workbench.colorCustomizations": {
+		"activityBar.background": "#3d3134aa",
+		"titleBar.activeBackground": "#493d40dd",
+		"titleBar.activeForeground": "#F4FBF7"
+	},
+	"window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}${appName}${separator}[Branch: main]"
 }
