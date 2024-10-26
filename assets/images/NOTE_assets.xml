@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.3 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="NOTE_assets.png" width="1426" height="235">
+	<SubTexture name="arrow0000" x="398" y="0" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
+	<SubTexture name="note0000" x="555" y="0" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
+	<SubTexture name="end0000" x="50" y="0" width="50" height="64" frameX="-0" frameY="-0" frameWidth="50" frameHeight="64"/>
+	<SubTexture name="hold0000" x="0" y="0" width="50" height="44" frameX="-0" frameY="-0" frameWidth="50" frameHeight="44"/>
+	<SubTexture name="confirm0000" x="712" y="0" width="238" height="235" frameX="-0" frameY="-0" frameWidth="238" frameHeight="235"/>
+	<SubTexture name="confirm0001" x="950" y="0" width="238" height="235" frameX="-0" frameY="-0" frameWidth="238" frameHeight="235"/>
+	<SubTexture name="confirm0002" x="1188" y="0" width="238" height="235" frameX="-0" frameY="-0" frameWidth="238" frameHeight="235"/>
+	<SubTexture name="press0000" x="100" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0001" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0002" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0003" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0004" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0005" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0006" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0007" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0008" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0009" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0010" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0011" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+	<SubTexture name="press0012" x="249" y="0" width="149" height="146" frameX="-0" frameY="-0" frameWidth="149" frameHeight="146"/>
+
+</TextureAtlas>
