@@ -56,17 +56,15 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			
 			animation.play('end');
 			updateHitbox();
-			alpha = 1;
-			
+			alpha = 0.5;
 
 			if (prevNote.isSustainNote)
 			{
 				prevNote.animation.play('hold');
 
-				prevNote.alpha = alpha;
+				prevNote.alpha = 0.5;
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.SONG.speed;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
@@ -162,6 +160,8 @@ class Note extends FlxSprite
 					wasGoodHit = true;
 			}
 		}
+		// if (isSustainNote && animation.curAnim.name == 'end')
+		//	scale.y = 1;
 	}
 
 	@:noCompletion
@@ -181,7 +181,7 @@ class Note extends FlxSprite
 
 	public function clipToStrumNote(myStrum:StrumNote)
 	{
-		var center:Float = myStrum.y + 0 + StrumNote.swag / 1.6;
+		var center:Float = myStrum.y + 0 + StrumNote.swag / FlxG.random.float(1.6, 2);
 		if (isSustainNote && (mustPress || !ignoreNote) && (!mustPress || (wasGoodHit || (prevNote.wasGoodHit && !canBeHit))))
 		{
 			var swagRect:FlxRect = clipRect;

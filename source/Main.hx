@@ -1,6 +1,7 @@
 package;
 
 import backend.LoadingState;
+import backend.PlayerSettings;
 import debug.FPSCounter;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -81,7 +82,7 @@ class Main extends Sprite
 		#if !debug
 		initialState = PlayState;
 		#end
-
+		PlayState.SONG = Song.loadFromJson('test', 'test');
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
@@ -90,6 +91,7 @@ class Main extends Sprite
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
 		backend.PlayerSettings.init();
-		LoadingState.loadAndSwitchState(new PlayState(), true);
+		// LoadingState.loadAndSwitchState(new PlayState(), true);
+		// trace(Paths.image('sussywussy.png', 'week1'));
 	}
 }

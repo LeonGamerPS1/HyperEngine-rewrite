@@ -5,7 +5,8 @@
     "needsVoices": true,
     "player1": "bf",
     "player2": "bf-pixel-opponent",
-    "speed": 1.6,
+    "player3": "gf",
+    "speed": 2.3,
     "notes": [
       { "lengthInSteps": 16, "mustHitSection": false, "sectionNotes": [] },
       { "lengthInSteps": 16, "mustHitSection": false, "sectionNotes": [] },

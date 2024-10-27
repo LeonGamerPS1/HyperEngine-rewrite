@@ -21,7 +21,7 @@
 
 	<!--These
 	window settings apply to all targets-->
-	<window width="1280" height="720" fps="60" background="null" hardware="true" vsync="false" />
+	<window width="1280" height="720" fps="60" background="null" hardware="true" vsync="true" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -37,9 +37,24 @@
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
 	<assets path="assets" />
-	<assets path="assets/game_assets" rename="assets/"/>
 
-	
+
+	<define name="PRELOAD_ALL" unless="web" />
+	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL" />
+
+	<assets path="assets/week1"  library="week1" />
+
+	<section if="PRELOAD_ALL">
+		<library name="week1" preload="true" />
+	</section>
+
+	<section if="NO_PRELOAD_ALL">
+		<library name="week1" preload="false" />
+	</section>
+
+
+	<assets path="assets/week1" library="week1" exclude="*.fla|*.ogg" if="web" />
+	<assets path="assets/week1" library="week1" exclude="*.fla|*.mp3" unless="web" />
 
 
 	<assets path="mods" />

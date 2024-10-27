@@ -1,8 +1,8 @@
 {
 	"song": {
-		"player1": "bf-duality",
-		"gfVersion": "pico-duality",
-		"player2": "mom-duality",
+		"player1": "bf-2",
+		"player3": "gf",
+		"player2": "mom-dad-duality",
 		"notes": [
 			{
 				"sectionNotes": [],

@@ -119,7 +119,7 @@ class StrumNote extends FlxSprite
 	}
 	public function splashfuck()
 	{
-		holdCoverEnd.visible = true;
+		//	holdCoverEnd.visible = true;
 		holdCoverEnd.animation.play('sicko');
 		new FlxTimer().start((1 / 24) * 7, function(tmr:FlxTimer)
 		{
@@ -148,7 +148,7 @@ class StrumNote extends FlxSprite
 		if (holdAss > 0)
 		{
 			holdAss -= e;
-			holdCover.visible = true;
+			// holdCover.visible = true;
 			if (holdAss <= 0)
 			{
 				// centerOffsets();
