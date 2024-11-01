@@ -117,6 +117,7 @@ class StrumNote extends FlxSprite
 		x += 50;
 		x += ((FlxG.width / 2) * player);
 	}
+
 	public function splashfuck()
 	{
 		//	holdCoverEnd.visible = true;

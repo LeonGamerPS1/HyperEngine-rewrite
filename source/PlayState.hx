@@ -23,7 +23,7 @@ class PlayState extends MusicBeatState
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 
-	public var downscroll:Bool = false;
+	public var downscroll:Bool = true;
 
 	public var voice:FlxSound;
 
@@ -50,7 +50,8 @@ class PlayState extends MusicBeatState
 
 	public static var instance:PlayState;
 
-	public var scripts:Array<HScript>;
+	public var scripts:Array<HScript> = [];
+	public var shaders:Array<shaders.BaseShader> = [];
 
 	public var boyfriend:Boyfriend;
 	public var gf:Character;
@@ -62,6 +63,8 @@ class PlayState extends MusicBeatState
 	public var DAD_Y:Float = 100;
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
+
+	public var songSpeed:Float = 1;
 
 	var camPos:FlxPoint;
 
@@ -79,10 +82,12 @@ class PlayState extends MusicBeatState
 		if (SONG == null)
 			SONG = Song.loadFromJson('duality-hard', 'duality');
 
+		songSpeed = SONG.speed;
+
 		instance = this;
 
 		super.create();
-		scripts = new Array<HScript>();
+
 
 		if (Assets.exists('assets/data/${SONG.song.toLowerCase()}.hx'))
 		{
@@ -97,8 +102,8 @@ class PlayState extends MusicBeatState
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
 
-		persistentUpdate = true;
-		persistentDraw = true;
+		// persistentUpdate = true;
+		// persistentDraw = true;
 
 		notes = new FlxTypedGroup<Note>();
 		holdCovers = new FlxTypedGroup<FlxSprite>();
@@ -110,8 +115,12 @@ class PlayState extends MusicBeatState
 		stagecum();
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
+		var ass = new ZShader();
+		shaders.push(ass);
+		// boyfriend.shader = ass;
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
+
 
 		gf = new Character(0, 0, SONG.player3);
 		startCharacterPos(gf);
@@ -149,7 +158,7 @@ class PlayState extends MusicBeatState
 		{
 			var player = i < 4 ? 0 : 1;
 
-			var note:StrumNote = new StrumNote(0, 50, i % 4, player);
+			var note:StrumNote = new StrumNote(0, !downscroll ? 50 : FlxG.height - 150, i % 4, player);
 
 			if (i < 4)
 				cpuStrums.add(note);
@@ -159,7 +168,7 @@ class PlayState extends MusicBeatState
 			holdCovers.add(note.holdCover);
 			holdCovers.add(note.holdCoverEnd);
 		}
-		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
+		healthBarBG = new FlxSprite(0, downscroll ? FlxG.height * 0.11 : FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
 		healthBarBG.cameras = [camHUD];
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
@@ -180,7 +189,7 @@ class PlayState extends MusicBeatState
 		add(yes);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		trace(SONG.player1);
+		// trace(SONG.player1);
 		iconP1.cameras = [camHUD];
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -403,9 +412,17 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		for (strgroup in [playerStrums, cpuStrums])
+			strgroup.forEach(function(str:StrumNote)
+			{
+				str.downScroll = downscroll;
+			});
+
 		if (unspawnNotes[0] != null && unspawnNotes[0].strumTime - Conductor.songPosition < 2000 / SONG.speed)
 		{
 			var dunceNote:Note = unspawnNotes[0];
+			if (dunceNote.isSustainNote)
+				dunceNote.cameras = [camUnderlay];
 			notes.add(dunceNote);
 
 			var index:Int = unspawnNotes.indexOf(dunceNote);
@@ -423,10 +440,16 @@ class PlayState extends MusicBeatState
 
 		keyShit();
 		call('onUpdate', elapsed);
+		for (index => shader in shaders)
+		{
+			shader.update(elapsed);
+		}
+
 		super.update(elapsed);
+
 		Conductor.songPosition = FlxG.sound.music.time;
 		camGame.zoom = FlxMath.lerp(defaultCamZoom, camGame.zoom, 0.9);
-		camHUD.zoom = FlxMath.lerp(defaultCamZoom, camHUD.zoom, 0.9);
+		camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.9);
 		if (FlxG.keys.justPressed.NINE)
 			iconP1.swapOldIcon();
 
@@ -496,6 +519,8 @@ class PlayState extends MusicBeatState
 
 	function noteloop()
 	{
+		var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
+
 		notes.forEach(function(note:Note)
 		{
 			var strumGroup:FlxTypedGroup<StrumNote> = note.mustPress ? playerStrums : cpuStrums;
@@ -509,10 +534,27 @@ class PlayState extends MusicBeatState
 			note.x = strumX + note.width * 0.225;
 
 			var offset = !note.isSustainNote ? note.height * 0.225 : 0;
-			note.y = (strumY - (Conductor.songPosition - note.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2))) + offset;
+			note.y = !downscroll ? (strumY
+				- (Conductor.songPosition - note.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)))
+				+ offset : (strumY + (Conductor.songPosition - note.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2))) + offset;
+
 			if (note.isSustainNote)
 			{
 				note.x += note.width * 1.5;
+				note.flipY = downscroll;
+				if (downscroll)
+				{
+					if (note.animation.curAnim.name.contains('end'))
+					{
+						note.y += 10.5 * (fakeCrochet / 400) * 1.5 * songSpeed + (46 * (songSpeed - 1));
+						note.y -= 46 * (1 - (fakeCrochet / 600)) * songSpeed;
+
+						// note.y -= 19;
+					}
+
+					note.y += (StrumNote.swag / 2) - (60.5 * (songSpeed - 1));
+					note.y += 27.5 * ((SONG.bpm / 100) - 1) * (songSpeed - 1);
+				}
 				note.clipToStrumNote(strumNote);
 			}
 
@@ -638,7 +680,10 @@ class PlayState extends MusicBeatState
 			notes.sort(Sort.sortNotes, FlxSort.DESCENDING);
 
 		if (curBeat % 4 == 0)
-			FlxG.camera.zoom += 0.05;
+		{
+			camGame.zoom += 0.13;
+			camHUD.zoom += 0.05;
+		}
 	}
 
 	private function keyShit():Void
@@ -787,7 +832,10 @@ class PlayState extends MusicBeatState
 			songScore -= 10;
 
 		voice.volume = 0;
+
 		// FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+		boyfriend.miss(direction);
+		// FlxG.sound.play('assets/sounds/beep.ogg', FlxG.random.float(0.1, 0.2));
 		call('noteMiss', direction, songScore, practiceMode);
 	}
 

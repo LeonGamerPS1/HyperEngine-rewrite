@@ -56,6 +56,8 @@
 	<assets path="assets/week1" library="week1" exclude="*.fla|*.ogg" if="web" />
 	<assets path="assets/week1" library="week1" exclude="*.fla|*.mp3" unless="web" />
 
+	<haxeflag name="--macro " value="macro.Macro.checkSys()"/>
+
 
 	<assets path="mods" />
 	<!-- _______________________________ Libraries ______________________________ -->

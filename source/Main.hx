@@ -82,7 +82,7 @@ class Main extends Sprite
 		#if !debug
 		initialState = PlayState;
 		#end
-		PlayState.SONG = Song.loadFromJson('test', 'test');
+		// PlayState.SONG = Song.loadFromJson('fallback-hard', 'fallback');
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);

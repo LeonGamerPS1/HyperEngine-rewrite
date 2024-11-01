@@ -39,6 +39,9 @@ class HScript
 		set('FlxG', FlxG);
 		// set('Math', Math);
 		set('FlxMath', FlxMath);
+		set('FlxTween', FlxTween);
+		set('BezPath', BezierPathTween);
+		set('BezPathNum', BezierPathTween);
 		// set('setBotplay', PlayState.instance.sebotplay);
 		set('sin', Math.sin);
 		set('cos', Math.cos);

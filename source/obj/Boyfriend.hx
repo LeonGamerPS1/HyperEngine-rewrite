@@ -33,4 +33,21 @@ class Boyfriend extends Character
 
 		super.update(elapsed);
 	}
+	public function miss(direction:Int = 1)
+	{
+		var animToPlay:String = '';
+		switch (direction)
+		{
+			case 0:
+				animToPlay = 'singLEFT';
+			case 1:
+				animToPlay = 'singDOWN';
+			case 2:
+				animToPlay = 'singUP';
+			case 3:
+				animToPlay = 'singRIGHT';
+		}
+		animToPlay += 'miss';
+		playAnim(animToPlay, true);
+	}
 }

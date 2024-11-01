@@ -181,7 +181,7 @@ class Note extends FlxSprite
 
 	public function clipToStrumNote(myStrum:StrumNote)
 	{
-		var center:Float = myStrum.y + 0 + StrumNote.swag / FlxG.random.float(1.6, 2);
+		var center:Float = myStrum.y + 0 + StrumNote.swag / FlxG.random.float(1.9, 2);
 		if (isSustainNote && (mustPress || !ignoreNote) && (!mustPress || (wasGoodHit || (prevNote.wasGoodHit && !canBeHit))))
 		{
 			var swagRect:FlxRect = clipRect;
@@ -190,11 +190,14 @@ class Note extends FlxSprite
 
 			if (myStrum.downScroll)
 			{
+				center = myStrum.y + 0 + StrumNote.swag / 2;
+				center += 15;
 				if (y - offset.y * scale.y + height >= center)
 				{
 					swagRect.width = frameWidth;
 					swagRect.height = (center - y) / scale.y;
 					swagRect.y = frameHeight - swagRect.height;
+
 				}
 			}
 			else if (y + offset.y * scale.y <= center)

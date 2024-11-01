@@ -1,6 +1,7 @@
 package debug;
 
 import flixel.FlxG;
+import openfl.Lib;
 import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
@@ -74,5 +75,6 @@ class FPSCounter extends TextField
 	}
 
 	inline function get_memoryMegas():Float
-		return #if cpp cpp.vm.Gc.memInfo64(cpp.vm.Gc.MEM_INFO_USAGE) #else 10000000000000.9 #end;
+		return #if cpp cpp.vm.Gc.memInfo64(cpp.vm.Gc.MEM_INFO_USAGE) #else #if hl hl.Gc.stats()
+			.currentMemory #else Std.parseFloat('${System.totalMemory}') #end #end;
 }
